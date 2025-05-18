@@ -1,7 +1,7 @@
 import React from 'react';
 import { Mail, Github, Database, Bot, MessageCircle } from 'lucide-react';
 
-const icons: Record<string, JSX.Element> = {
+const icons: Record<string, React.ReactNode> = {
   gmail: <Mail size={16} />,
   github: <Github size={16} />,
   notion: <Database size={16} />,
