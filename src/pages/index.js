@@ -10,12 +10,37 @@ import ReactFlow, {
 import 'reactflow/dist/style.css';
 
 const initialNodes = [
-  { id: '1', type: 'input', data: { label: 'GitHub' }, position: { x: 100, y: 50 } },
-  { id: '2', data: { label: 'Vercel' }, position: { x: 400, y: 50 } },
-  { id: '3', data: { label: 'Supabase' }, position: { x: 250, y: 200 } },
-  { id: '4', data: { label: 'Cursor' }, position: { x: 100, y: 350 } },
-  { id: '5', data: { label: 'Codex' }, position: { x: 400, y: 350 } },
-  { id: '6', data: { label: 'Operator (ChatGPT)' }, position: { x: 250, y: 500 } }
+  {
+    id: '1',
+    type: 'input',
+    data: { label: 'GitHub', url: 'https://github.com' },
+    position: { x: 100, y: 50 }
+  },
+  {
+    id: '2',
+    data: { label: 'Vercel', url: 'https://vercel.com' },
+    position: { x: 400, y: 50 }
+  },
+  {
+    id: '3',
+    data: { label: 'Supabase', url: 'https://supabase.com' },
+    position: { x: 250, y: 200 }
+  },
+  {
+    id: '4',
+    data: { label: 'Cursor', url: 'https://cursor.so' },
+    position: { x: 100, y: 350 }
+  },
+  {
+    id: '5',
+    data: { label: 'Codex', url: 'https://example.com/codex' },
+    position: { x: 400, y: 350 }
+  },
+  {
+    id: '6',
+    data: { label: 'Operator (ChatGPT)', url: 'https://openai.com' },
+    position: { x: 250, y: 500 }
+  }
 ];
 
 const initialEdges = [
@@ -36,6 +61,20 @@ export default function Home() {
     []
   );
 
+  const onNodeClick = useCallback((_, node) => {
+    if (node.data?.url) {
+      window.open(node.data.url, '_blank');
+    }
+  }, []);
+
+  const onNodeDragStop = useCallback((event, node) => {
+    setNodes((nds) =>
+      nds.map((n) =>
+        n.id === node.id ? { ...n, position: node.position } : n
+      )
+    );
+  }, []);
+
   return (
     <div style={{ height: '100vh' }}>
       <ReactFlow
@@ -44,7 +83,9 @@ export default function Home() {
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
-        deleteKeyCode={46} // 'delete' key
+        onNodeClick={onNodeClick}
+        onNodeDragStop={onNodeDragStop}
+        deleteKeyCode={46}
       >
         <MiniMap />
         <Controls />
