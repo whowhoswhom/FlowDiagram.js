@@ -1,8 +1,8 @@
 import dynamic from 'next/dynamic';
 import React from 'react';
 
-const OrgChartCanvas = dynamic(() => import('../components/OrgChartCanvas'), { ssr: false });
+const FlowDiagram = dynamic(() => import('../components/FlowDiagram'), { ssr: false });
 
 export default function Home() {
-  return <OrgChartCanvas />;
+  return <FlowDiagram />;
 }

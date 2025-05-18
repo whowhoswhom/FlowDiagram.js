@@ -1,10 +1,4 @@
-export interface OrgNode {
-  id?: string;
-  name: string;
-  role: string;
-  tools?: string[];
-  children?: OrgNode[];
-}
+import { OrgNode } from '../types/OrgNode';
 
 export const orgData: OrgNode = {
   name: 'Chief AI Agent',
