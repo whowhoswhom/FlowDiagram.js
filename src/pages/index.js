@@ -1,13 +1,15 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import ReactFlow, {
   Background,
   Controls,
   MiniMap,
   addEdge,
-  removeElements
+  useEdgesState,
+  useNodesState
 } from 'reactflow';
+import 'reactflow/dist/style.css';
 
-const initialElements = [
+const initialNodes = [
   {
     id: '1',
     type: 'input',
@@ -38,7 +40,10 @@ const initialElements = [
     id: '6',
     data: { label: 'Operator (ChatGPT)', url: 'https://openai.com' },
     position: { x: 250, y: 500 }
-  },
+  }
+];
+
+const initialEdges = [
   { id: 'e1-2', source: '1', target: '2', animated: true },
   { id: 'e2-3', source: '2', target: '3' },
   { id: 'e3-4', source: '3', target: '4' },
@@ -48,44 +53,39 @@ const initialElements = [
 ];
 
 export default function Home() {
-  const [elements, setElements] = useState(initialElements);
+  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
+  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
-  const onElementsRemove = useCallback((elementsToRemove) =>
-    setElements((els) => removeElements(elementsToRemove, els)),
+  const onConnect = useCallback(
+    (params) => setEdges((eds) => addEdge({ ...params, animated: true }, eds)),
     []
   );
-
-  const onConnect = useCallback((params) =>
-    setElements((els) => addEdge({ ...params, animated: true }, els)),
-    []
-  );
-
-  const onNodeDragStop = useCallback((event, node) => {
-    setElements((els) =>
-      els.map((el) =>
-        el.id === node.id ? { ...el, position: node.position } : el
-      )
-    );
-  }, []);
 
   const onNodeClick = useCallback((_, node) => {
-    if (node.data && node.data.url) {
+    if (node.data?.url) {
       window.open(node.data.url, '_blank');
-    } else if (node.data && node.data.oauth) {
-      // Placeholder for OAuth logic
-      console.log('Trigger OAuth for', node.data.oauth);
     }
+  }, []);
+
+  const onNodeDragStop = useCallback((event, node) => {
+    setNodes((nds) =>
+      nds.map((n) =>
+        n.id === node.id ? { ...n, position: node.position } : n
+      )
+    );
   }, []);
 
   return (
     <div style={{ height: '100vh' }}>
       <ReactFlow
-        elements={elements}
-        onElementsRemove={onElementsRemove}
+        nodes={nodes}
+        edges={edges}
+        onNodesChange={onNodesChange}
+        onEdgesChange={onEdgesChange}
         onConnect={onConnect}
         onNodeClick={onNodeClick}
         onNodeDragStop={onNodeDragStop}
-        deleteKeyCode={46} // 'delete' key
+        deleteKeyCode={46}
       >
         <MiniMap />
         <Controls />
