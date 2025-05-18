@@ -8,12 +8,37 @@ import ReactFlow, {
 } from 'reactflow';
 
 const initialElements = [
-  { id: '1', type: 'input', data: { label: 'GitHub' }, position: { x: 100, y: 50 } },
-  { id: '2', data: { label: 'Vercel' }, position: { x: 400, y: 50 } },
-  { id: '3', data: { label: 'Supabase' }, position: { x: 250, y: 200 } },
-  { id: '4', data: { label: 'Cursor' }, position: { x: 100, y: 350 } },
-  { id: '5', data: { label: 'Codex' }, position: { x: 400, y: 350 } },
-  { id: '6', data: { label: 'Operator (ChatGPT)' }, position: { x: 250, y: 500 } },
+  {
+    id: '1',
+    type: 'input',
+    data: { label: 'GitHub', url: 'https://github.com' },
+    position: { x: 100, y: 50 }
+  },
+  {
+    id: '2',
+    data: { label: 'Vercel', url: 'https://vercel.com' },
+    position: { x: 400, y: 50 }
+  },
+  {
+    id: '3',
+    data: { label: 'Supabase', url: 'https://supabase.com' },
+    position: { x: 250, y: 200 }
+  },
+  {
+    id: '4',
+    data: { label: 'Cursor', url: 'https://cursor.so' },
+    position: { x: 100, y: 350 }
+  },
+  {
+    id: '5',
+    data: { label: 'Codex', url: 'https://example.com/codex' },
+    position: { x: 400, y: 350 }
+  },
+  {
+    id: '6',
+    data: { label: 'Operator (ChatGPT)', url: 'https://openai.com' },
+    position: { x: 250, y: 500 }
+  },
   { id: 'e1-2', source: '1', target: '2', animated: true },
   { id: 'e2-3', source: '2', target: '3' },
   { id: 'e3-4', source: '3', target: '4' },
@@ -43,12 +68,22 @@ export default function Home() {
     );
   }, []);
 
+  const onNodeClick = useCallback((_, node) => {
+    if (node.data && node.data.url) {
+      window.open(node.data.url, '_blank');
+    } else if (node.data && node.data.oauth) {
+      // Placeholder for OAuth logic
+      console.log('Trigger OAuth for', node.data.oauth);
+    }
+  }, []);
+
   return (
     <div style={{ height: '100vh' }}>
       <ReactFlow
         elements={elements}
         onElementsRemove={onElementsRemove}
         onConnect={onConnect}
+        onNodeClick={onNodeClick}
         onNodeDragStop={onNodeDragStop}
         deleteKeyCode={46} // 'delete' key
       >

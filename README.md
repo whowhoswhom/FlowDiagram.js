@@ -10,6 +10,7 @@ A visual, interactive, and editable diagram representing Jose's infrastructure t
 - Live editing: move, connect, or delete nodes/edges
 - Full screen layout (100vh)
 - Minimal, functional styling
+- Clickable nodes open dashboard URLs or trigger OAuth
 
 ## Getting Started
 1. **Install dependencies:**
@@ -30,10 +31,9 @@ A visual, interactive, and editable diagram representing Jose's infrastructure t
 - Deployable on Vercel (recommended)
 
 ## Future Enhancements
-- Click events on nodes (open dashboard URLs)
-- Enable node creation via UI
-- Save/load layout from Supabase
-- Integrate ChatGPT (Operator) for editing support
+  - Enable node creation via UI
+  - Save/load layout from Supabase
+  - Integrate ChatGPT (Operator) for editing support
 
 ---
 
