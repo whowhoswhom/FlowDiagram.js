@@ -6,6 +6,7 @@ import ReactFlow, {
   addEdge,
   removeElements
 } from 'reactflow';
+import 'reactflow/dist/style.css';
 
 const initialElements = [
   { id: '1', type: 'input', data: { label: 'GitHub' }, position: { x: 100, y: 50 } },
