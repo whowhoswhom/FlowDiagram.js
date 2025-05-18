@@ -11,6 +11,8 @@ A visual, interactive, and editable diagram representing Jose's infrastructure t
 - Full screen layout (100vh)
 - Minimal, functional styling
 - Clickable nodes open dashboard URLs or trigger OAuth
+- Double-click nodes to view their settings
+- Edge colors indicate connection strength (green = strong, red = weak)
 
 ## Getting Started
 1. **Install dependencies:**
