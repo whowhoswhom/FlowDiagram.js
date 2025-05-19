@@ -10,7 +10,8 @@ import ReactFlow, {
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 import DepartmentNode from './DepartmentNode';
-import { orgData, OrgNode } from '../data/orgData';
+import { orgData } from '../data/orgData';
+import { OrgNode } from '../types/OrgNode';
 
 interface FlattenResult {
   nodes: Node[];
