@@ -6,6 +6,8 @@ type Data = {
   name: string;
   role: string;
   tools?: string[];
+  type?: string;
+  department?: string;
 };
 
 export default function DepartmentNode({ data }: NodeProps<Data>) {
@@ -15,10 +17,21 @@ export default function DepartmentNode({ data }: NodeProps<Data>) {
 
   const toggleEdit = () => setEditing(!editing);
 
+  const colorMap: Record<string, string> = {
+    Executive: 'bg-blue-100',
+    ChiefAgent: 'bg-purple-100',
+    DepartmentHead: 'bg-green-100',
+    SubFunction: 'bg-yellow-100',
+    IndividualAgent: 'bg-gray-100',
+    Database: 'bg-gray-200',
+  };
+
+  const bgClass = colorMap[data.type ?? 'DepartmentHead'];
+
   return (
     <div
       onDoubleClick={toggleEdit}
-      className="bg-white border rounded shadow p-2 text-center min-w-[120px] hover:ring-2 hover:ring-blue-400"
+      className={`${bgClass} border rounded shadow p-2 text-center min-w-[120px] hover:ring-2 hover:ring-blue-400`}
     >
       {editing ? (
         <>

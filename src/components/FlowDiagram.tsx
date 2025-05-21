@@ -30,8 +30,14 @@ function flatten(root: OrgNode): FlattenResult {
     node.id = id;
     nodes.push({
       id,
-      type: 'department',
-      data: { name: node.name, role: node.role, tools: node.tools },
+      type: 'orgNode',
+      data: {
+        name: node.name,
+        role: node.role,
+        tools: node.tools,
+        type: node.type,
+        department: node.department,
+      },
       position: { x: depth * 250, y: index * 150 }
     });
     if (parentId) {
@@ -54,7 +60,7 @@ export default function FlowDiagram() {
       <ReactFlow
         nodes={nodes}
         edges={edges}
-        nodeTypes={{ department: DepartmentNode }}
+        nodeTypes={{ orgNode: DepartmentNode }}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         fitView
