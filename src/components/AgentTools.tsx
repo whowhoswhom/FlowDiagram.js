@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mail, Github, Database, Bot, MessageCircle } from 'lucide-react';
+import { Mail, Github, Database, Bot, MessageCircle, Slack } from 'lucide-react';
 
 const icons: Record<string, React.ReactNode> = {
   gmail: <Mail size={16} />,
@@ -7,6 +7,7 @@ const icons: Record<string, React.ReactNode> = {
   notion: <Database size={16} />,
   chatgpt: <Bot size={16} />,
   discord: <MessageCircle size={16} />,
+  slack: <Slack size={16} />,
   vercel: <Database size={16} />,
 };
 
